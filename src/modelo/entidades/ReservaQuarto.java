@@ -46,7 +46,7 @@ public class ReservaQuarto {
 	
 	
 	public long duracao() {
-		Duration t1 = Duration.between(dataSaida.atStartOfDay(), dataEntrada.atStartOfDay());
+		Duration t1 = Duration.between(dataEntrada.atStartOfDay(), dataSaida.atStartOfDay());
 		return t1.toDays();
 	}
 	
