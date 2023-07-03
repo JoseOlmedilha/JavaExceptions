@@ -38,10 +38,18 @@ public class ReservaQuarto {
 	}
 
 	
-	public void attData(LocalDate entrada, LocalDate saida) {
+	public String attData(LocalDate entrada, LocalDate saida) {
+		LocalDate data1 = LocalDate.now();
+		
+		if(dataEntrada.isBefore(data1) || dataSaida.isBefore(data1) ) {
+			return "Erro na reserva: as datas de reserva para atualizações devem ser datas futuras";
+		}
+		if(!dataSaida.isAfter(dataEntrada)) {
+			return "Erro na reserva: a data de saida deve ser posterior à data de entrada";
+		}
 		this.dataEntrada = entrada;
 		this.dataSaida = saida;
-		
+		return null;
 	}
 	
 	

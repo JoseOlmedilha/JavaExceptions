@@ -35,21 +35,19 @@ public class Programa {
 			System.out.print("Data de saida: ");
 			dataSaida = LocalDate.parse(sc.next(), fmt1);
 		
-			LocalDate data1 = LocalDate.now();
 			
-			if(dataEntrada.isBefore(data1) || dataSaida.isBefore(data1) ) {
-				System.out.println("Erro na reserva: as datas de reserva para atualizações devem ser datas futuras");
-			}
-			else if(!dataSaida.isAfter(dataEntrada)) {
-				System.out.println("Erro na reserva: a data de saida deve ser posterior à data de entrada");
+			
+			String erro = reserva.attData(dataEntrada, dataSaida);
+			
+			if(erro != null) {
+				System.out.println("Erro na reserva "+ erro);
 			}
 			else {
-				reserva.attData(dataEntrada, dataSaida);
 				System.out.println("Reserva: " + reserva);
 			}
+				
+				
 		}
-		
-		
 		sc.close();
 	}
 
