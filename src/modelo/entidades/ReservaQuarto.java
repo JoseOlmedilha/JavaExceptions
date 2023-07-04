@@ -4,14 +4,19 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import modelo.Exception.DomainExceptions;
+
 public class ReservaQuarto {
-	
+
 	private Integer numQuarto;
 	private LocalDate dataSaida;
 	private LocalDate dataEntrada;
+
 	
-	
-	public ReservaQuarto(Integer numQuarto, LocalDate dataSaida, LocalDate dataEntrada) {
+	public ReservaQuarto(Integer numQuarto, LocalDate dataSaida, LocalDate dataEntrada) throws DomainExceptions {
+		if(!dataSaida.isAfter(dataEntrada)) {
+			throw new DomainExceptions( "Erro na reserva: as datas de reserva para atualizações devem ser datas futuras");
+		}
 		this.numQuarto = numQuarto;
 		this.dataSaida = dataSaida;
 		this.dataEntrada = dataEntrada;
@@ -38,18 +43,18 @@ public class ReservaQuarto {
 	}
 
 	
-	public String attData(LocalDate entrada, LocalDate saida) {
+	public void attData(LocalDate entrada, LocalDate saida) throws DomainExceptions {
 		LocalDate data1 = LocalDate.now();
 		
 		if(dataEntrada.isBefore(data1) || dataSaida.isBefore(data1) ) {
-			return "Erro na reserva: as datas de reserva para atualizações devem ser datas futuras";
+			throw new DomainExceptions( "Erro na reserva: as datas de reserva para atualizações devem ser datas futuras");
 		}
 		if(!dataSaida.isAfter(dataEntrada)) {
-			return "Erro na reserva: a data de saida deve ser posterior à data de entrada";
+			throw new DomainExceptions( "Erro na reserva: as datas de reserva para atualizações devem ser datas futuras");
 		}
 		this.dataEntrada = entrada;
 		this.dataSaida = saida;
-		return null;
+		
 	}
 	
 	
